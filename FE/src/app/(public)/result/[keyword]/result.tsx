@@ -1,25 +1,30 @@
 "use client";
 import Loading from "@/components/ui/loading";
 import { ServiceCard } from "@/components/ui/ServiceCard";
-import { useLayThongTinTheoChiTietLoai } from "@/queries/useJobTitle";
+import { useSearch } from "@/queries/useJobTitle";
 import { CongViecChiTiet } from "@/schemas/job";
 import { useParams } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 type Props = {};
 
-export default function Categories({}: Props) {
-  const { id } = useParams();
-  const { data, isLoading, isError } = useLayThongTinTheoChiTietLoai(
-    Number(id)
-  );
+export default function Result({}: Props) {
+  const { keyword } = useParams();
+  const { data, isLoading, isError } = useSearch(keyword as string);
   const arrCategory = data?.content.content as CongViecChiTiet[];
   const renderService = () => {
     return arrCategory.map((service: CongViecChiTiet, index: number) => {
@@ -41,9 +46,9 @@ export default function Categories({}: Props) {
           <ul className="d-flex algin-items-center gap-2">
             <li>
               <Link href="/home">Fiverr</Link>
-              <span className="XQskgrQ chevron-icon-right" aria-hidden="true">
+              <span className="XQskgrQ chevron-icon-right" aria-hkeywordden="true">
                 <svg
-                  width={16}
+                  wkeywordth={16}
                   height={16}
                   viewBox="0 0 8 16"
                   xmlns="http://www.w3.org/2000/svg"
@@ -55,9 +60,9 @@ export default function Categories({}: Props) {
             </li>
             <li>
               <Link href="/">{arrCategory[0]?.tenLoaiCongViec}</Link>
-              <span className="XQskgrQ chevron-icon-right" aria-hidden="true">
+              <span className="XQskgrQ chevron-icon-right" aria-hkeywordden="true">
                 <svg
-                  width={16}
+                  wkeywordth={16}
                   height={16}
                   viewBox="0 0 8 16"
                   xmlns="http://www.w3.org/2000/svg"

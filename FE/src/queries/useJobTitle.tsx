@@ -15,6 +15,13 @@ export const useLayThongTinTheoChiTietLoai = (id: number) => {
   });
 };
 
+export const useSearch = (keyword: string) => {
+  return useQuery({
+    queryKey: ["search", keyword],
+    queryFn: () => apiJobTitleRequest.search(keyword),
+  });
+};
+
 export const useLayThongTinChiTietJob = (id: number) => {
   return useQuery({
     queryKey: ["job-detail", id],

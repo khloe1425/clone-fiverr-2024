@@ -13,12 +13,15 @@ import Image from "next/image";
 import VideoModel from "@/components/Video/VideoModal";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
+import { useRouter } from "next/navigation";
 type Props = {};
 
 export default function Home({}: Props) {
   const [param, setParam] = useState("");
+  const router = useRouter();
   const handelSubmit = async (e: any) => {
     e.preventDefault();
+    router.push(`/result/${param}`);
     // navigate(`/result/${param}`);
   };
   const handelChange = (e: any) => {

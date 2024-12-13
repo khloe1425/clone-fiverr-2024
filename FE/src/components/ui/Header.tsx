@@ -7,6 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import CategoriesMenu from "./CategoriesMenu";
+import { useGetProfile } from "@/queries/useProfile";
+import { toast } from "react-toastify";
+import { User } from "@/schemas/profile";
 
 // Add fontawesome icons
 library.add(fas);
@@ -15,20 +18,23 @@ type Props = {
   fill?: string;
 };
 
-// Mock user data (replace with real API call or logic as needed)
-const mockUser = {
-  avatar: "https://via.placeholder.com/50", // example avatar
-  name: "John Doe",
-  email: "john.doe@example.com",
-};
-
 export default function Header({}: Props) {
   const [param, setParam] = useState("");
   const [scrollPosition, setScrollPosition] = useState(0);
-
+  const userProfile = useGetProfile();
+  const [userLogin, setUserLogin] = useState<User>();
+  useEffect(() => {
+    if (userProfile.isLoading) return;
+    if (userProfile.isError) {
+      toast.error(
+        (userProfile.error as any).content.content ||
+          "Có lỗi xảy ra, vui lòng thử lại"
+      );
+    }
+    setUserLogin(userProfile.data?.content.content as User);
+  }, [userProfile]);
   // Simulating user login state using mock data
-  const userLogin = JSON.parse(localStorage.getItem("userLogin") || "");
-
+  // const userLogin = JSON.parse(localStorage.getItem("userLogin"));
   // Check if the user is logged in
   const renderItem = () => {
     if (!userLogin) {
@@ -36,30 +42,16 @@ export default function Header({}: Props) {
     } else {
       return (
         <Link href="/profile">
-          {userLogin.avatar ? (
-            <figure className="mb-0">
-              <Image
-                src={userLogin.avatar || "https://via.placeholder.com/50"}
-                alt="avatar"
-                className="avatar"
-                width={50}
-                height={50}
-                style={{ borderRadius: 50 }}
-              />
-            </figure>
-          ) : (
+          {
             <div className="flex flex-row items-center gap-2">
-              <Image
-                src={userLogin.avatar || "https://via.placeholder.com/50"}
+              <img
+                src={userLogin.avatar || "https://via.placeholder.com/30"}
                 alt="avatar"
-                className="avatar"
-                width={50}
-                height={50}
-                style={{ borderRadius: 50 }}
+                style={{ borderRadius: 50, width: 40, height: 40 }}
               />
               <p className="text my-0">{userLogin.name}</p>
             </div>
-          )}
+          }
         </Link>
       );
     }
@@ -101,7 +93,7 @@ export default function Header({}: Props) {
       );
     } else {
       return (
-        <div>
+        <div className="flex flex-row">
           {userLogin.avatar ? (
             <figure className="mb-0 d-flex">
               <Image

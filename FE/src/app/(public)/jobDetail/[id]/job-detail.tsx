@@ -162,7 +162,7 @@ export default function JobDetail({}: Props) {
               <img
                 src={comment?.avatar}
                 alt="user avatar"
-                className="rounded-circle"
+                className="rounded-full w-[40px] h-[40px] sm:w-[60px] sm:h-[60px] md:w-[80px] md:h-[80px] lg:w-[100px] lg:h-[100px] object-cover"
               />
             ) : (
               <div className="placeholder-avatar rounded-circle">
@@ -335,8 +335,7 @@ export default function JobDetail({}: Props) {
               <div className="seller-overview d-flex flex-wrap gap-3 align-items-center">
                 <div className="seller-avatar">
                   <img
-                    className="rounded-circle"
-                    width={30}
+                    className="rounded-full w-[30px] h-[30px]"
                     src={detailJob?.avatar || ""}
                     alt="avatar"
                   />

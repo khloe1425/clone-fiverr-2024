@@ -15,6 +15,10 @@ const apiJobTitleRequest = {
     http.get<{ status: number; content: CongViecChiTiet[] }>(
       `cong-viec/lay-cong-viec-chi-tiet/${id}`
     ),
+  search: (keyword: string) =>
+    http.get<{ status: number; content: CongViecChiTiet[] }>(
+      `cong-viec/lay-danh-sach-cong-viec-theo-ten/${keyword}`
+    ),
 };
 
 export default apiJobTitleRequest;
