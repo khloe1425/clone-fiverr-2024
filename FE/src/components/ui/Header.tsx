@@ -144,15 +144,13 @@ export default function Header({}: Props) {
 
   return (
     <>
-      <header
-        className={scrollPosition > 0 ? "header" : "header header-active"}
-      >
+      <header className={"header"}>
         <div className="header_wrapper">
           <div className="header_row">
             <div className="left">
               <div className="flex">
                 <Link href="/" className="logo">
-                  <CustomLogo color={scrollPosition > 0 ? "#404145" : "#fff"} />
+                  <CustomLogo color={"#404145"} />
                 </Link>
               </div>
               <div className="header_search rounded-md">
